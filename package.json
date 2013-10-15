@@ -1,0 +1,21 @@
+{
+  "name": "iai-test",
+  "version": "0.0.0",
+  "description": "unit test case generator plus other test utilities",
+  "main": "lib/test.js",
+  "directories": {
+    "test": "test"
+  },
+  "scripts": {
+    "test": "./node_modules/.bin/mocha"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/laconbass/iai-test.git"
+  },
+  "author": "Lorenzo García Rivera",
+  "license": "BSD-2-Clause",
+  "bugs": {
+    "url": "https://github.com/laconbass/iai-test/issues"
+  }
+}
