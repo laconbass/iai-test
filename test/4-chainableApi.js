@@ -1,3 +1,7 @@
+var assert = require( "chai" ).assert
+  , test = require( ".." )
+;
+
 describe( "#chainableApi", function(){
   it( "should be a function", function(){
     assert.isFunction( test.chainableApi );
