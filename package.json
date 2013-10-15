@@ -3,8 +3,13 @@
   "version": "0.0.0",
   "description": "unit test case generator plus other test utilities",
   "main": "lib/test.js",
-  "directories": {
-    "test": "test"
+  "files": [
+    "index.js",
+    "LICENSE"
+  ],
+  "devDependencies": {
+    "chai": "~1.8.1",
+    "mocha": "~1.13.0"
   },
   "scripts": {
     "test": "./node_modules/.bin/mocha"
