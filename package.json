@@ -2,7 +2,7 @@
   "name": "iai-test",
   "version": "0.0.0",
   "description": "unit test case generator plus other test utilities",
-  "main": "lib/test.js",
+  "main": "index.js",
   "files": [
     "index.js",
     "LICENSE"
