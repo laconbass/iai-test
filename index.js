@@ -138,3 +138,23 @@ test.chainableApi = function( api, methods ){
     );
   }
 };
+
+/**
+ * @function builder: Asserts fn is a builder
+ *   @param fn [Function]: the function to be tested
+ *   @param args [Array]: the params to be a applied for the third assertion
+ *
+ * This function asserts:
+ *   - fn is a function
+ *   - fn has owns a "prototype" property
+ *   - fn returns an instanceof itself when applied its prototype plus given args
+ */
+
+test.builder = function( fn, args ){
+  var name = (fn.name||fn)
+  assert( isFn(fn),  name+" should be a function" );
+  assert( fn.hasOwnProperty("prototype"),
+          name+" should own a prototype property" );
+  assert( fn.apply(fn.prototype) instanceof fn,
+          name+" should return instances of itself" );
+};
