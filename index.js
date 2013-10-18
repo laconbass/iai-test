@@ -155,6 +155,6 @@ test.builder = function( fn, args ){
   assert( isFn(fn),  name+" should be a function" );
   assert( fn.hasOwnProperty("prototype"),
           name+" should own a prototype property" );
-  assert( fn.apply(fn.prototype) instanceof fn,
+  assert( fn.apply( {}, args||[] ) instanceof fn,
           name+" should return instances of itself" );
 };
