@@ -110,7 +110,7 @@ test.defined = function( o, pname ){
 test.methods = function( o ){
   Array.prototype.slice.call( arguments, 1 )
   .forEach(function(value){
-    test.defined( o, value );
+    //test.defined( o, value );
     assert( isFn( o[value] ), o+"#"+value+" is not a function" );
   })
 }
