@@ -1,5 +1,7 @@
 var assert = require( 'assert' )
-  , isFn = require( 'iai-is' )( 'Function' )
+  , is = require( 'iai-is' )
+  , isFn = is( 'Function' )
+  , isRe = is( 'RegExp' )
 ;
 
 /**
@@ -13,7 +15,17 @@ var exports = module.exports = test;
 exports.version = "1";
 exports.stability = 1;
 
-function test( cases ){
+function test( cases, option ){
+  if( isRe(cases) ){
+    var result = {};
+    var reverse = option == "reverse";
+    for( var case_name in test.cases ){
+      if( cases.test(case_name) === !reverse ){
+        result[ case_name ] = test.cases[ case_name ];
+      }
+    }
+    return result;
+  }
   if( !~Object.keys( test.cases ).indexOf(cases) ){
     throw Error( "["+cases+"] is not within test.cases");
   }
@@ -28,39 +40,51 @@ function test( cases ){
  */
 
 test.cases = {
+  "primitive string starting with caps CamelCase-valid slug-valid": "Abcde",
+  "primitive string capitalized slug-valid": "CAPITALIZED",
+  "primitive string lowercased camelCase-valid slug-valid": "lowercased",
+
+  "CamelCase string slug-valid": "ThisIsaValidCamelCaseString",
+  "camel-like string with trailing spaces": "   ThisIsAValidCamelCaseString",
+  "camel-like string with preceding spaces": "ThisIsAValidCamelCaseString    ",
+  "camel-like string with preceding numeric characters slug-valid": "1234ThisIsAValidCamelCaseString",
+  "camel-like string with trailing numeric slug-valid": "ThisIsAValidCamelCaseString1234",
+  "camel-like string containing spaces": "T hi s IsAV alid Came lC aseString",
+  "camel-like string containing numeric characters slug-valid": "Thi2s5IsaV8alid0Came2lC4aseString",
+
   "primitive string empty": "",
   "primitive string whitespace characters": "        ",
   "primitive string tab characters": "\t\t",
-  "primitive string alphanumeric characters": "abcdefghijklm1234567890",
-  "primitive string non-numeric characters": "xabcdefx",
+  "primitive string alphanumeric character slug-valids": "abcdefghijklm1234567890",
+  "primitive string non-numeric characters camelCase-valid slug-valid": "xabcdefx",
   "primitive string numeric with preceding non-numeric characters": "bcfed5.2",
   "primitive string numeric with trailling non-numeric characters": "7.2acdgs",
 
-  "primitive string integer decimal number zero": "0",
-  "primitive string integer decimal negative number": "-10",
-  "primitive string integer decimal positive number": "5",
-  "primitive string integer octal number": "040",
-  "primitive string integer hexadecimal number": "0xFF",
+  "primitive string integer decimal number zero slug-valid": "0",
+  "primitive string integer decimal negative number slug-valid": "-10",
+  "primitive string integer decimal positive number slug-valid": "5",
+  "primitive string integer octal number slug-valid": "040",
+  "primitive string integer hexadecimal number slug-valid": "0xFF",
   "primitive string floating-point negative number": "-1.6",
   "primitive string floating-point positive number": "4.536",
   "primitive string floating-comma negative number": "-4,536",
   "primitive string floating-comma positive number": "4,536",
-  "primitive string exponential notation number": "123e-2",
+  "primitive string exponential notation number slug-valid": "123e-2",
 
-  "primitive integer decimal number zero": 0,
-  "primitive integer decimal negative number": -16,
-  "primitive integer decimal positive number": 32,
-  "primitive integer octal number": 0144,
-  "primitive integer hexadecimal number": 0xFFF,
+  "primitive integer decimal number zero slug-valid": 0,
+  "primitive integer decimal negative number slug-valid": -16,
+  "primitive integer decimal positive number slug-valid": 32,
+  "primitive integer octal number slug-valid": 0144,
+  "primitive integer hexadecimal number slug-valid": 0xFFF,
 
   "primitive floating-point negative number": -2.6,
   "primitive floating-point negative number": 3.1415,
-  "primitive exponential notation number": 8e5,
+  "primitive exponential notation number slug-valid": 8e5,
 
-  "primitive boolean true": true,
-  "primitive string true": "true",
-  "primitive boolean false": false,
-  "primitive string false": "false",
+  "primitive boolean true camelCase-valid slug-valid": true,
+  "primitive string true camelCase-valid slug-valid": "true",
+  "primitive boolean false camelCase-valid slug-valid": false,
+  "primitive string false camelCase-valid slug-valid": "false",
 
   "primitive infinity": Infinity,
   "positive infinity": Number.POSITIVE_INFINITY,
