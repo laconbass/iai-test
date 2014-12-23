@@ -11,6 +11,8 @@ describe( "test", function(){
   it( "should expose a function", function(){
     assert.isFunction( test );
   })
+  it( "should throw TypeError if argument 1 is a string", function(){
+    assert.throws( function(){ test( 'some string' ); }, TypeError );
+  })
   it( "should filter test.cases given a regexp")
-  it( "should throw a TypeError if argument 1 is not a regexp")
 })

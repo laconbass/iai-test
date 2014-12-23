@@ -16,21 +16,22 @@ exports.version = "1";
 exports.stability = 1;
 
 function test( cases, option ){
-  if( isRe(cases) ){
-    var result = {};
-    var reverse = option == "reverse";
-    for( var case_name in test.cases ){
-      if( cases.test(case_name) === !reverse ){
-        result[ case_name ] = test.cases[ case_name ];
-      }
+  if( ! isRe(cases) ){
+    throw new TypeError('arg 1 must be a RegExp');
+  }
+  var result = {};
+  var reverse = option == "reverse";
+  for( var case_name in test.cases ){
+    if( cases.test(case_name) === !reverse ){
+      result[ case_name ] = test.cases[ case_name ];
     }
-    return result;
   }
-  if( !~Object.keys( test.cases ).indexOf(cases) ){
-    throw Error( "["+cases+"] is not within test.cases");
-  }
-  return test.cases[ cases ];
+  return result;
 }
+
+exports.toString = function toString(){
+  return __filename + "'s exports";
+};
 
 /**
  * ## Generic test cases ##
@@ -103,6 +104,16 @@ test.cases = {
 
   "anonymous function": function(){},
   "named function": function name(){}
+};
+
+test.exportsSomething = function( obj ){
+  if( 'function' == typeof obj ){
+    return "ok is function";
+  }
+  if( is.EmptyObject(obj) ){
+    throw Error("exports should not be an empty object");
+  }
+  return "ok is object not empty";
 };
 
 /**
